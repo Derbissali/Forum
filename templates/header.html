@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/stylek.css" />
+    <title>Document</title>
+</head>
+
+<body class="container">
+    {{define "header"}}
+    <header class="head">
+        <div class="logo">
+            <h1><a href="/">Forum</a></h1>
+        </div>
+        <div class="right-side">
+            {{ if .User.Session }}
+            
+            <ul class=ulik>
+                <li>
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn">{{.User.Name}}</button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <a href="/createdPosts"> Created Posts</a>
+                            <a href="/likedPosts"> Liked posts</a>
+                        </div>
+                       
+                      </div>
+                    
+                </li>
+                <li>
+                    <form action="/logout" method="post">
+                        <button type="submit" class="dropbtn">Logout</button>
+                    </form>
+                    {{else}}
+                    <a href="/signin"> signin</a>
+                    <a href="/signup"> signup</a>
+                    {{end}}
+                </li>
+            </ul>
+        </div>
+    </header>
+    {{end}}
+
+    <main class="main">
+        {{define "navbar"}}
+        <nav class="nav-bar">
+            
+            <ul>
+                <li class="active">
+                    <a>Categories</a>
+                </li>
+                {{range .Category}}
+                <li><a href="/Category/{{ .Name }}">{{ .Name}}</a></li>
+                {{end}}
+                {{ if .User.Session }}
+                <li><a href="/createpost"><i class="fa fa-plus"></i>Add Post</a></li>
+                {{ else }}
+                {{end}}
+            </ul>
+        </nav>
+        {{end}}
+    </main>
+
+</body>
+
+</html>

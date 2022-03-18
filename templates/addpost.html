@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="navbar">
+            <nav class="navbar navbar-findcond navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">Forum</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="nav navbar-nav navbar-right">
+                            <!-- <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-fw fa-bell-o"></i> Bildirimler <span class="badge">0</span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#"><i class="fa fa-fw fa-tag"></i> <span class="badge">Music</span> sayfası <span class="badge">Video</span> sayfasında etiketlendi</a></li>
+                                    <li><a href="#"><i class="fa fa-fw fa-thumbs-o-up"></i> <span class="badge">Music</span> sayfasında iletiniz beğenildi</a></li>
+                                    <li><a href="#"><i class="fa fa-fw fa-thumbs-o-up"></i> <span class="badge">Video</span> sayfasında iletiniz beğenildi</a></li>
+                                    <li><a href="#"><i class="fa fa-fw fa-thumbs-o-up"></i> <span class="badge">Game</span> sayfasında iletiniz beğenildi</a></li>
+                                </ul>
+                            </li> -->
+                         
+                            {{ if .User.Session }}
+                            <li class="dropdown">
+                                
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{.User.Name}} <span class="caret"></span></a>
+                                
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/createdPosts"> Created Posts</a></li>
+                                    <li><a href="/likedPosts"> Liked posts</a></li>
+                                </ul>
+                            </li>
+                            <li class="active">
+                                <form action="/logout" method="post">
+                                    <button type="submit" class="btn-link">Logout</button>
+                                </form>
+                            </li>
+                            {{ else }}
+                            <li class="active"><a href="/signup">signup<span class="sr-only">(current)</span></a></li>
+                            <li class="active"><a href="/signin">signin<span class="sr-only">(current)</span></a></li>
+                            {{end}}
+                        </ul>
+                        
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="container">
+            <div id="blog" class="row">
+    
+                <div class="col-sm-2 paddingTop20">
+                    <nav class="nav-sidebar">
+                        <ul class="nav">
+                            <li class="active"><a href="javascript:;"><span class="glyphicon glyphicon-star"></span>
+                                    Categories</a></li>
+                            {{range .Category}}
+                            <li><a href="/Category/{{ .Name }}">{{ .Name}}</a></li>
+                            {{end}}
+                            <li class="nav-divider"></li>
+                            {{ if .User.Session }}
+                            <li><a href="/createpost"><i class="fa fa-plus"></i>Add Post</a></li>
+                            {{ else }}
+                            {{end}}
+                    </nav>
+                    <!-- <div>
+                        <h2 class="add">Place for your add!</h2>
+                    </div> -->
+                </div>
+                <div class="col-md-10">
+                    <hr>
+                    <div class="well">
+        
+                        <form enctype="multipart/form-data"  action="/posting" method="POST">
+                            <div class="form-group">
+                                {{ if .Post.CategoryNull}}
+                                <p>please choose category</p>
+                                {{ end }}
+                                {{ if .Post.TitBodNull}}
+                                <p>please fill title/body</p>
+                                {{ end }}
+                                <h4>Title:</h4>
+                                <textarea class="myArea" maxlength="50" name="postN" wrap="off"></textarea>
+                                <h4>Content:</h4>
+                                <input type="file" name="myFile"/>
+                                <textarea class="myArea1" name="postB" maxlength="2000" rows="3"></textarea>
+                                {{range .Category}}
+                                <div class="param">
+                                    <div class="labels"><input type="checkbox"  id="ch-cd" name="category" value="{{ .Name}}"
+                                            autocomplete="off">
+                                        {{ .Name}}
+                                    </div>
+                                </div>
+                                {{end}}
+                            </div>
+                        </select>
+                        
+                            <button type="submit" name="say" value="" class="btn btn-primary"><i class="fa fa-reply"></i>Submit</button>
+                        </form>
+                    </div>
+                    
+                    <hr>
+        
+                </div>
+        
+        
+        
+            </div>
+        
+            </div>
+            </div>
+            </div>
+            
+        </div>
+       
+    
+</body>
+
+</html>
